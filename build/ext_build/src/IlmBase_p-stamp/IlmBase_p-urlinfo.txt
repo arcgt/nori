@@ -1,0 +1,3 @@
+repository='external project URL'
+module='/Users/tian/Documents/University/Master/ComputerGraphics/nori/ext/openexr/IlmBase'
+tag=''

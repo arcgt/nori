@@ -1,0 +1,9 @@
+/Users/tian/Documents/University/Master/ComputerGraphics/nori/build/ext_build/src/tbb_p-build/CMakeFiles/install/strip.dir
+/Users/tian/Documents/University/Master/ComputerGraphics/nori/build/ext_build/src/tbb_p-build/CMakeFiles/install.dir
+/Users/tian/Documents/University/Master/ComputerGraphics/nori/build/ext_build/src/tbb_p-build/CMakeFiles/list_install_components.dir
+/Users/tian/Documents/University/Master/ComputerGraphics/nori/build/ext_build/src/tbb_p-build/CMakeFiles/tbb.dir
+/Users/tian/Documents/University/Master/ComputerGraphics/nori/build/ext_build/src/tbb_p-build/CMakeFiles/rebuild_cache.dir
+/Users/tian/Documents/University/Master/ComputerGraphics/nori/build/ext_build/src/tbb_p-build/CMakeFiles/edit_cache.dir
+/Users/tian/Documents/University/Master/ComputerGraphics/nori/build/ext_build/src/tbb_p-build/CMakeFiles/install/local.dir
+/Users/tian/Documents/University/Master/ComputerGraphics/nori/build/ext_build/src/tbb_p-build/CMakeFiles/tbbmalloc_proxy.dir
+/Users/tian/Documents/University/Master/ComputerGraphics/nori/build/ext_build/src/tbb_p-build/CMakeFiles/tbbmalloc.dir

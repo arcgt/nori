@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/tian/Documents/University/Master/ComputerGraphics/nori/build/ext_build/dist/include/OpenEXR/half.h
+halfExport.h
+/Users/tian/Documents/University/Master/ComputerGraphics/nori/build/ext_build/dist/include/OpenEXR/halfExport.h
+iostream
+-
+
+/Users/tian/Documents/University/Master/ComputerGraphics/nori/build/ext_build/dist/include/OpenEXR/halfExport.h
+
+/Users/tian/Documents/University/Master/ComputerGraphics/nori/build/ext_build/src/OpenEXR_p/IlmImf/b44ExpLogTable.cpp
+half.h
+-
+math.h
+-
+iostream
+-
+iomanip
+-
+
