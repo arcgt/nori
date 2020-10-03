@@ -38,14 +38,66 @@ public:
     virtual Point3f getCentroid(uint32_t index) const override { return m_position; }
 
     virtual bool rayIntersect(uint32_t index, const Ray3f &ray, float &u, float &v, float &t) const override {
+        // origin and direction of ray, respectively
+        Point3f o = ray.o;
+        Vector3f d = ray.d;
 
-	/* to be implemented */
+        // coefficients of quadratic formula for intersection between ray and sphere
+        float a = d.dot(d);
+        float b = 2 * (d.dot(o - m_position));
+        float c = (o - m_position).dot(o - m_position) - m_radius*m_radius;
+
+        // checking for intersections
+        float discriminant = b*b - 4*a*c;
+
+        // there are two intersections between the line equation of the ray and the sphere
+        if (discriminant > 0) {
+            float t_minus = (-b - sqrt(discriminant)) / (2*a);
+            float t_plus = (-b + sqrt(discriminant)) / (2*a);
+
+            // find the smallest real positive root in order to compute the intersection point
+            // sqrt(discriminant) > 0, 2*a > 0 --> therefore t_plus > t_minus
+            if (t_minus > 0) {
+                if (t_minus > ray.mint && t_minus < ray.maxt) {
+                    t = t_minus;
+                    return true;
+                }
+            }
+
+            else if (t_plus > 0) {
+                if (t_plus > ray.mint && t_plus < ray.maxt) {
+                    t = t_plus;
+                    return true;
+                }
+            }
+        }
+
+        // ray is a tangent to the sphere
+        else if (discriminant == 0) {
+            float t_tangent = -b / (2*a);
+            if (t_tangent > ray.mint && t_tangent < ray.maxt) {
+                t = t_tangent;
+                return true;
+            }
+        }
+
+        //no intersection
         return false;
-
     }
 
     virtual void setHitInformation(uint32_t index, const Ray3f &ray, Intersection & its) const override {
-        /* to be implemented */
+        // intersection point
+        its.p = ray.o + ray.d*its.t;
+
+        // unit normal to the intersection point
+        Vector3f n = (its.p - m_position).normalized();
+
+        // geometric normal and shading normal is the same for an exact sphere
+        its.geoFrame = Frame(n);
+        its.shFrame = Frame(n);
+
+        // 3D to 2D mapping - spherical coordinates of the intersection point linearly scaled to fit in [0,1]
+        its.uv = sphericalCoordinates(n);
     }
 
     virtual void sampleSurface(ShapeQueryRecord & sRec, const Point2f & sample) const override {
