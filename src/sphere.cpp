@@ -98,6 +98,8 @@ public:
 
         // 3D to 2D mapping - spherical coordinates of the intersection point linearly scaled to fit in [0,1]
         its.uv = sphericalCoordinates(n);
+        its.uv[0] = its.uv[0] / (2*M_PI);
+        its.uv[1] = its.uv[1] / M_PI;
     }
 
     virtual void sampleSurface(ShapeQueryRecord & sRec, const Point2f & sample) const override {
