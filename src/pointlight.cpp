@@ -48,5 +48,5 @@ protected:
     Point3f m_position;
 };
 
-NORI_REGISTER_CLASS(PointLight, "pointlight");
+NORI_REGISTER_CLASS(PointLight, "point");
 NORI_NAMESPACE_END
