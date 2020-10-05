@@ -36,6 +36,7 @@ public:
 
             // get bsdf term by contructing a BSDFQueryRecord with (wi, wo, measure) and calling bsdf->eval()
             BSDFQueryRecord bRec = BSDFQueryRecord(its.shFrame.toLocal(lRec.wi), its.shFrame.toLocal(-ray.d), ESolidAngle);
+            bRec.uv = its.uv; // set uv coordinates
             Color3f bsdf = its.mesh->getBSDF()->eval(bRec);
 
             // check if there is interference from the point light to the surface

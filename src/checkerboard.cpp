@@ -29,8 +29,16 @@ public:
     virtual std::string toString() const override;
 
     virtual T eval(const Point2f & uv) override {
-        /* to be implemented */
-	    return m_value1;
+        // m_scale : this is the size of the tile
+        // m_delta : this is the shift of the tiles
+
+        // number of tiles from the origin is : floor(u/m_scale.x + m_delta.x), floor(v/m_scale.y + m_delta.y)
+
+        if (((int(floor(uv.x()/m_scale.x() + m_delta.x())) % 2 == 0) && (abs(int(floor(uv.y()/m_scale.y() + m_delta.y()))) % 2 == 1)) ||
+            ((abs(int(floor(uv.x()/m_scale.x() + m_delta.x()))) % 2 == 1) && (int(floor(uv.y()/m_scale.y() + m_delta.y())) % 2 == 0))) {
+            return m_value2;
+            }
+        return m_value1;
     }
 
 protected:
