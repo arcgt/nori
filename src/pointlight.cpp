@@ -22,7 +22,7 @@ public:
         // probability density value
         lRec.pdf = 1.f;
         // shadow ray from sampling origin to sampled point
-        lRec.shadowRay = Ray3f(lRec.ref, lRec.wi, Epsilon, (lRec.p - lRec.ref).norm());
+        lRec.shadowRay = Ray3f(lRec.ref, lRec.wi, Epsilon, (lRec.p - lRec.ref).norm() - Epsilon);
 
         // return emitter value / probability density value
         return eval(lRec) / pdf(lRec);

@@ -37,13 +37,13 @@ public:
         /* Albedo of the diffuse base material (a.k.a "kd") */
         m_kd = propList.getColor("kd", Color3f(0.5f));
 
-        /* To ensure energy conservation, we must scale the 
-           specular component by 1-kd. 
+        /* To ensure energy conservation, we must scale the
+           specular component by 1-kd.
 
-           While that is not a particularly realistic model of what 
-           happens in reality, this will greatly simplify the 
-           implementation. Please see the course staff if you're 
-           interested in implementing a more realistic version 
+           While that is not a particularly realistic model of what
+           happens in reality, this will greatly simplify the
+           implementation. Please see the course staff if you're
+           interested in implementing a more realistic version
            of this BRDF. */
         m_ks = 1 - m_kd.maxCoeff();
     }
@@ -53,11 +53,11 @@ public:
         float temp = Frame::tanTheta(m) / m_alpha,
               ct = Frame::cosTheta(m), ct2 = ct*ct;
 
-        return std::exp(-temp*temp) 
+        return std::exp(-temp*temp)
             / (M_PI * m_alpha * m_alpha * ct2 * ct2);
     }
 
-    /// Evaluate Smith's shadowing-masking function G1 
+    /// Evaluate Smith's shadowing-masking function G1
     float smithBeckmannG1(const Vector3f &v, const Normal3f &m) const {
         float tanTheta = Frame::tanTheta(v);
 
@@ -76,23 +76,55 @@ public:
 
         /* Use a fast and accurate (<0.35% rel. error) rational
            approximation to the shadowing-masking function */
-        return (3.535f * a + 2.181f * a2) 
+        return (3.535f * a + 2.181f * a2)
              / (1.0f + 2.276f * a + 2.577f * a2);
     }
 
     /// Evaluate the BRDF for the given pair of directions
     virtual Color3f eval(const BSDFQueryRecord &bRec) const override {
-    	throw NoriException("MicrofacetBRDF::eval(): not implemented!");
+        // following the equations in the task
+        Vector3f wh = (bRec.wi + bRec.wo).normalized();
+        float F = fresnel(wh.dot(bRec.wi), m_extIOR, m_intIOR);
+        float D = evalBeckmann(wh);
+        float G = smithBeckmannG1(bRec.wi, wh)*smithBeckmannG1(bRec.wo, wh);
+
+        return m_kd*INV_PI + (m_ks*D*F*G) / (4*Frame::cosTheta(bRec.wi)*Frame::cosTheta(bRec.wo));
     }
 
     /// Evaluate the sampling density of \ref sample() wrt. solid angles
     virtual float pdf(const BSDFQueryRecord &bRec) const override {
-    	throw NoriException("MicrofacetBRDF::pdf(): not implemented!");
+        if (Frame::cosTheta(bRec.wo) <= 0.f) {
+            return 0.f;
+        }
+        // following the equations in the task
+        Vector3f wh = (bRec.wi + bRec.wo).normalized();
+        float D = evalBeckmann(wh);
+        float J = 1 / (4*wh.dot(bRec.wo));
+
+      	return m_ks*D*Frame::cosTheta(wh)*J + (1-m_ks)*Frame::cosTheta(bRec.wo)*INV_PI;
     }
 
     /// Sample the BRDF
     virtual Color3f sample(BSDFQueryRecord &bRec, const Point2f &_sample) const override {
-    	throw NoriException("MicrofacetBRDF::sample(): not implemented!");
+        if (Frame::cosTheta(bRec.wi) <= 0)
+            return Color3f(0.0f);
+
+        if (_sample.x() < m_ks) {
+            Point2f sample(_sample.x() / m_ks, _sample.y()); // rescale sample as already used c for comparing with m_ks
+            Vector3f wh = Warp::squareToBeckmann(sample, m_alpha); // randomly generate with pdf proportional to D
+            bRec.wo = (2*(wh.dot(bRec.wi))*wh - bRec.wi).normalized(); // perfect reflection: microfacet theory slide 4
+        } else {
+            Point2f sample((_sample.x() - m_ks) / (1 - m_ks), _sample.y());
+            // warp a uniformly distributed sample on [0,1]^2 to a direction on a cosine-weighted hemisphere
+            bRec.wo = Warp::squareToCosineHemisphere(sample);
+        }
+
+        // if the reflected direction points below the surface simply reject the sample by returning 0
+        if (Frame::cosTheta(bRec.wo) <= 0){
+            return Color3f(0.0f);
+        }
+
+        return (eval(bRec)*Frame::cosTheta(bRec.wo)) / pdf(bRec);
     }
 
     virtual std::string toString() const override {

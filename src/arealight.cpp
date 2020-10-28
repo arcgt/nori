@@ -40,21 +40,67 @@ public:
         if(!m_shape)
             throw NoriException("There is no shape attached to this Area light!");
 
-        throw NoriException("To implement...");
+        // if the front side of the emissive shape is intersected
+        if ((-lRec.wi).dot(lRec.n) >= 0) {
+            return m_radiance;
+        }
+        // otherwise
+        return 0;
     }
 
     virtual Color3f sample(EmitterQueryRecord & lRec, const Point2f & sample) const override {
         if(!m_shape)
             throw NoriException("There is no shape attached to this Area light!");
 
-        throw NoriException("To implement...");
+        /**
+         * \brief Sample a point on the surface (potentially using the point sRec.ref to importance sample)
+         * This method should set sRec.p, sRec.n and sRec.pdf
+         * Probability should be with respect to area
+         * */
+        ShapeQueryRecord sRec;
+        m_shape->sampleSurface(sRec, sample);
+
+        // see pointlight.cpp or emitter.h for comments
+        lRec.p = sRec.p;
+        lRec.n = sRec.n;
+        lRec.wi = (lRec.p - lRec.ref).normalized();
+        lRec.pdf = sRec.pdf;
+        lRec.shadowRay = Ray3f(lRec.ref, lRec.wi, Epsilon, (lRec.p - lRec.ref).norm() - Epsilon);
+
+        // return emitter value / probability density value
+        if (pdf(lRec) > 0) {
+            return eval(lRec) / pdf(lRec);
+        }
+
+        return 0;
     }
 
     virtual float pdf(const EmitterQueryRecord &lRec) const override {
         if(!m_shape)
             throw NoriException("There is no shape attached to this Area light!");
 
-        throw NoriException("To implement...");
+        // define the shape query record
+        ShapeQueryRecord sRec;
+        sRec.ref = lRec.ref;
+        sRec.p = lRec.p;
+
+        // costheta
+        float cos = (-lRec.wi).dot(lRec.n);
+
+        // if front facing surface encountered
+        if (cos > 0) {
+            /**
+             * \brief Return the probability of sampling a point sRec.p by the sampleSurface() method (sRec.ref should be set before)
+             * sRec.n and sRec.pdf are ignored
+             * */
+
+            //pdf converted to solid angle measure
+            return m_shape->pdfSurface(sRec) * (sRec.p - sRec.ref).squaredNorm() / cos;
+        }
+
+        // if back-facing surface encountered
+        return 0;
+
     }
 
 
