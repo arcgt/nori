@@ -26,12 +26,12 @@ public:
             lTotal += its.mesh->getEmitter()->eval(lRecE);
         }
 
-        // get bsdf term by contructing a BSDFQueryRecord with (wi) and drawing a sample from the BRDF model
+        // create a new record for sampling bsdf
         BSDFQueryRecord bRec = BSDFQueryRecord(its.shFrame.toLocal(-ray.d));
         bRec.uv = its.uv; // set uv coordinates
         Color3f bsdf = its.mesh->getBSDF()->sample(bRec, sampler->next2D());
 
-        //incidence radiance from reflected
+        // incidence radiance from reflected
         Ray3f rayR = Ray3f(its.p, its.shFrame.toWorld(bRec.wo));
         Intersection itsR;
         if (scene->rayIntersect(rayR, itsR)) {

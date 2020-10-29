@@ -70,7 +70,7 @@ public:
       pdfEms, pdfMats = 0.0f;
       float wmats = 0.0f;
 
-      // get bsdf term by contructing a BSDFQueryRecord with (wi) and drawing a sample from the BRDF model
+      // create a new record for sampling bsdf
       BSDFQueryRecord bRec_mats = BSDFQueryRecord(its.shFrame.toLocal(-ray.d));
       bRec_mats.uv = its.uv; // set uv coordinates
       Color3f bsdf = its.mesh->getBSDF()->sample(bRec_mats, sampler->next2D());
