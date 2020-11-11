@@ -57,18 +57,14 @@ public:
 
             // find the smallest real positive root in order to compute the intersection point
             // sqrt(discriminant) > 0, 2*a > 0 --> therefore t_plus > t_minus
-            if (t_minus > 0) {
-                if (t_minus > ray.mint && t_minus < ray.maxt) {
-                    t = t_minus;
-                    return true;
-                }
+            if (t_minus > ray.mint && t_minus < ray.maxt) {
+                t = t_minus;
+                return true;
             }
 
-            else if (t_plus > 0) {
-                if (t_plus > ray.mint && t_plus < ray.maxt) {
-                    t = t_plus;
-                    return true;
-                }
+            if (t_plus > ray.mint && t_plus < ray.maxt) {
+                t = t_plus;
+                return true;
             }
         }
 

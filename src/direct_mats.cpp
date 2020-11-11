@@ -20,7 +20,7 @@ public:
         // initialise for emitter sampler output - total incident radiance
         Color3f lTotal = 0.0f;
 
-        // incidence radience from emitter
+        // emitter
         if (its.mesh->isEmitter()) {
             EmitterQueryRecord lRecE = EmitterQueryRecord(ray.o, its.p, its.shFrame.n);
             lTotal += its.mesh->getEmitter()->eval(lRecE);
@@ -31,7 +31,7 @@ public:
         bRec.uv = its.uv; // set uv coordinates
         Color3f bsdf = its.mesh->getBSDF()->sample(bRec, sampler->next2D());
 
-        // incidence radiance from reflected
+        // reflected
         Ray3f rayR = Ray3f(its.p, its.shFrame.toWorld(bRec.wo));
         Intersection itsR;
         if (scene->rayIntersect(rayR, itsR)) {
