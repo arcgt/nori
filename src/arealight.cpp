@@ -105,7 +105,33 @@ public:
 
 
     virtual Color3f samplePhoton(Ray3f &ray, const Point2f &sample1, const Point2f &sample2) const override {
-        throw NoriException("To implement...");
+        if(!m_shape)
+            throw NoriException("There is no shape attached to this Area light!");
+
+        // uniformly choose a location on the surface
+        ShapeQueryRecord sRec;
+        m_shape->sampleSurface(sRec, sample1);
+
+        // choose a cosine-weighted random direction over the hemisphere around the surface normal
+        Vector3f d = Warp::squareToCosineHemisphere(sample2);
+        d = Frame(sRec.n).toWorld(d);
+
+        //photon ray
+		    ray = Ray3f(sRec.p, d);
+
+        // see pointlight.cpp or emitter.h for comments
+        EmitterQueryRecord lRec;
+        lRec.ref = sRec.p + d;
+        lRec.p = sRec.p;
+        lRec.n = sRec.n;
+
+        // the power of the photon is π⋅A⋅Le, where Le is the emitted radiance, and A is the total surface area of the shape light
+        // the pdf of an arealight is inversely proportional to its area
+        if (sRec.pdf > 0) {
+            return M_PI * eval(lRec) / sRec.pdf;
+        }
+
+        return 0;
     }
 
 
