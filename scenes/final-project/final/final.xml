@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scene>
+
+  <!-- Independent sample generator, 512 samples per pixel -->
+	<sampler type="independent">
+		<integer name="sampleCount" value="512"/>
+	</sampler>
+
+	<!-- Use the path tracer with multiple importance sampling -->
+	<integrator type="path_mis">
+	</integrator>
+
+	<camera type="perspective">
+		<transform name="toWorld">
+			<lookat target="489.857, -114.686, 503.183" origin="490.447, -114.755, 503.987" up="0.0407857, 0.99762, 0.0555876"/>
+		</transform>
+		<float name="fov" value="39.3077"/>
+		<integer name="width" value="800"/>
+		<integer name="height" value="600"/>
+	</camera>
+
+	<mesh type="obj">
+		<string name="filename" value="meshes/light.obj"/>
+		<bsdf type="diffuse">
+			<color name="albedo" value="0,0,0"/>
+		</bsdf>
+		<emitter type="area">
+			<color name="radiance" value="34000, 24000, 8000"/>
+		</emitter>
+
+	</mesh>
+
+	<mesh type="obj">
+		<string name="filename" value="meshes/cat-right.obj"/>
+		<bsdf type="diffuse">
+			<color name="albedo" value="0.01, 0.01, 0.01"/>
+		</bsdf>
+	</mesh>
+
+  <mesh type="obj">
+    <string name="filename" value="meshes/cat-left.obj"/>
+    <bsdf type="diffuse">
+      <color name="albedo" value="0.9, 0.9, 0.9"/>
+    </bsdf>
+  </mesh>
+
+	<mesh type="obj">
+		<string name="filename" value="meshes/adcolumns.obj"/>
+		<bsdf type="mirror">
+			<color name="albedo" value="0.5, 0.5, 0.9"/>
+		</bsdf>
+	</mesh>
+
+	<mesh type="obj">
+		<string name="filename" value="meshes/buildings.obj"/>
+		<bsdf type="diffuse">
+			<color name="albedo" value="0.3, 0.1, 0.1"/>
+		</bsdf>
+	</mesh>
+
+
+	<mesh type="obj">
+		<string name="filename" value="meshes/ground.obj"/>
+		<bsdf type="diffuse">
+			<color name="albedo" value="0.75, 0.75, 0.75"/>
+		</bsdf>
+	</mesh>
+
+
+	<!-- <mesh type="obj">
+		<string name="filename" value="meshes/glass.obj"/>
+		<bsdf type="dielectric">
+		    <float name="intIOR" value="1.5"/>
+		    <float name="extIOR" value="1"/>
+		</bsdf>
+	</mesh> -->
+
+	<mesh type="obj">
+		<string name="filename" value="meshes/lampposts.obj"/>
+		<bsdf type="mirror"/>
+	</mesh>
+
+</scene>
