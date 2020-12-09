@@ -12,9 +12,9 @@
 
 	<camera type="perspective">
 		<transform name="toWorld">
-			<lookat target="489.857, -114.686, 503.183" origin="490.447, -114.755, 503.987" up="0.0407857, 0.99762, 0.0555876"/>
+			<lookat target="96.2, -0.382, -77.5" origin="0.19909, 0.60177, 0.23391" up="0, 1, 0"/>
 		</transform>
-		<float name="fov" value="39.3077"/>
+		<float name="fov" value="100"/>
 		<integer name="width" value="800"/>
 		<integer name="height" value="600"/>
 	</camera>
@@ -25,7 +25,7 @@
 			<color name="albedo" value="0,0,0"/>
 		</bsdf>
 		<emitter type="area">
-			<color name="radiance" value="34000, 24000, 8000"/>
+			<color name="radiance" value="2000,2000,2000"/>
 		</emitter>
 
 	</mesh>
@@ -49,12 +49,15 @@
 		<bsdf type="mirror">
 			<color name="albedo" value="0.5, 0.5, 0.9"/>
 		</bsdf>
+		<emitter type="area">
+			<color name="radiance" value="2000,2000,2000"/>
+		</emitter>
 	</mesh>
 
 	<mesh type="obj">
 		<string name="filename" value="meshes/buildings.obj"/>
 		<bsdf type="diffuse">
-			<color name="albedo" value="0.3, 0.1, 0.1"/>
+			<color name="albedo" value="0.1, 0.1, 0.1"/>
 		</bsdf>
 	</mesh>
 

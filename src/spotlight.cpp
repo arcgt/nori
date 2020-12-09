@@ -60,7 +60,8 @@ public:
         // smooth fall off from intensity 1 at cosFalloffStart and intensity 0 at cosTotalWidth
         float delta = (cosTheta - m_cosTotalWidth) / (m_cosFalloffStart - m_cosTotalWidth);
         // correct effects of cos
-        return (delta * delta) * (delta * delta);
+        // return (delta * delta) * (delta * delta);
+        return delta * delta;
     }
 
     std::string toString() const {
