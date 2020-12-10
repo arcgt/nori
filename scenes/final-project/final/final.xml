@@ -12,14 +12,15 @@
 
 	<camera type="perspective">
 		<transform name="toWorld">
-			<lookat target="96.2, -0.382, -77.5" origin="0.19909, 0.60177, 0.23391" up="0, 1, 0"/>
+			<!-- blender = x, y, z : nori = x, z, -y -->
+			<lookat target="0.980342, 0.302223, -0.787989" origin="0.19909, 0.23391, -0.60177" up="0, 1, 0"/>
 		</transform>
-		<float name="fov" value="100"/>
-		<integer name="width" value="800"/>
-		<integer name="height" value="600"/>
+		<float name="fov" value="50"/>
+		<integer name="width" value="1920"/>
+		<integer name="height" value="1080"/>
 	</camera>
 
-	<mesh type="obj">
+	<!-- <mesh type="obj">
 		<string name="filename" value="meshes/light.obj"/>
 		<bsdf type="diffuse">
 			<color name="albedo" value="0,0,0"/>
@@ -28,6 +29,118 @@
 			<color name="radiance" value="2000,2000,2000"/>
 		</emitter>
 
+	</mesh> -->
+
+	<!-- 0 -->
+	<emitter type="spotlight">
+			<point name="position" value = "2.32594, 0.64, -0.499883"/>
+			<color name="power" value="200,200,200"/>
+			<vector name="direction" value = "0,-5,0"/>
+
+			<float name="cosFalloffStart" value="20"/>
+			<float name="cosTotalWidth" value="60"/>
+	</emitter>
+
+	<!-- 1 -->
+	<emitter type="spotlight">
+			<point name="position" value = "2.29872, 0.64, -1.47748"/>
+			<color name="power" value="200,200,200"/>
+			<vector name="direction" value = "0,-5,0"/>
+
+			<float name="cosFalloffStart" value="20"/>
+			<float name="cosTotalWidth" value="60"/>
+	</emitter>
+
+	<!-- 2 -->
+	<emitter type="spotlight">
+			<point name="position" value = "3.72926, 0.64, -1.47764"/>
+			<color name="power" value="200,200,200"/>
+			<vector name="direction" value = "0,-5,0"/>
+
+			<float name="cosFalloffStart" value="20"/>
+			<float name="cosTotalWidth" value="60"/>
+	</emitter>
+
+	<!-- 3 -->
+	<emitter type="spotlight">
+			<point name="position" value = "3.67424, 0.64, -0.499776"/>
+			<color name="power" value="200,200,200"/>
+			<vector name="direction" value = "0,-5,0"/>
+
+			<float name="cosFalloffStart" value="20"/>
+			<float name="cosTotalWidth" value="60"/>
+	</emitter>
+
+	<!-- 4 -->
+	<emitter type="spotlight">
+			<point name="position" value = "5.07745, 0.64, -1.47752"/>
+			<color name="power" value="200,200,200"/>
+			<vector name="direction" value = "0,-5,0"/>
+
+			<float name="cosFalloffStart" value="20"/>
+			<float name="cosTotalWidth" value="60"/>
+	</emitter>
+
+	<!-- 5 -->
+	<emitter type="spotlight">
+			<point name="position" value = "5.10502, 0.64, -0.499758"/>
+			<color name="power" value="200,200,200"/>
+			<vector name="direction" value = "0,-5,0"/>
+
+			<float name="cosFalloffStart" value="20"/>
+			<float name="cosTotalWidth" value="60"/>
+	</emitter>
+
+	<!-- 6 -->
+	<emitter type="spotlight">
+			<point name="position" value = "6.65238, 0.64, -1.39131"/>
+			<color name="power" value="200,200,200"/>
+			<vector name="direction" value = "0,-5,0"/>
+
+			<float name="cosFalloffStart" value="20"/>
+			<float name="cosTotalWidth" value="60"/>
+	</emitter>
+
+	<!-- 7 -->
+	<emitter type="spotlight">
+			<point name="position" value = "6.65206, 0.64, -0.281793"/>
+			<color name="power" value="200,200,200"/>
+			<vector name="direction" value = "0,-5,0"/>
+
+			<float name="cosFalloffStart" value="20"/>
+			<float name="cosTotalWidth" value="60"/>
+	</emitter>
+
+	<!-- 8 -->
+	<emitter type="spotlight">
+			<point name="position" value = "8.0112, 0.64, -0.946117"/>
+			<color name="power" value="200,200,200"/>
+			<vector name="direction" value = "0,-5,0"/>
+
+			<float name="cosFalloffStart" value="20"/>
+			<float name="cosTotalWidth" value="60"/>
+	</emitter>
+
+	<!-- 9 -->
+	<emitter type="spotlight">
+			<point name="position" value = "8.011, 0.64, 0.198594"/>
+			<color name="power" value="200,200,200"/>
+			<vector name="direction" value = "0,-5,0"/>
+
+			<float name="cosFalloffStart" value="20"/>
+			<float name="cosTotalWidth" value="60"/>
+	</emitter>
+
+	<mesh type="obj">
+		<string name="filename" value="meshes/lamppost-lights.obj"/>
+		<emitter type="area">
+			<color name="radiance" value="1,1,1"/>
+		</emitter>
+	</mesh>
+
+	<mesh type="obj">
+		<string name="filename" value="meshes/lampposts.obj"/>
+		<bsdf type="mirror"/>
 	</mesh>
 
 	<mesh type="obj">
@@ -49,9 +162,9 @@
 		<bsdf type="mirror">
 			<color name="albedo" value="0.5, 0.5, 0.9"/>
 		</bsdf>
-		<emitter type="area">
-			<color name="radiance" value="2000,2000,2000"/>
-		</emitter>
+		<!-- <emitter type="area">
+			<color name="radiance" value="200,200,200"/>
+		</emitter> -->
 	</mesh>
 
 	<mesh type="obj">
@@ -67,20 +180,6 @@
 		<bsdf type="diffuse">
 			<color name="albedo" value="0.75, 0.75, 0.75"/>
 		</bsdf>
-	</mesh>
-
-
-	<!-- <mesh type="obj">
-		<string name="filename" value="meshes/glass.obj"/>
-		<bsdf type="dielectric">
-		    <float name="intIOR" value="1.5"/>
-		    <float name="extIOR" value="1"/>
-		</bsdf>
-	</mesh> -->
-
-	<mesh type="obj">
-		<string name="filename" value="meshes/lampposts.obj"/>
-		<bsdf type="mirror"/>
 	</mesh>
 
 </scene>
