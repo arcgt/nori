@@ -15,21 +15,15 @@
 			<!-- blender = x, y, z : nori = x, z, -y -->
 			<lookat target="0.980342, 0.302223, -0.787989" origin="0.19909, 0.23391, -0.60177" up="0, 1, 0"/>
 		</transform>
-		<float name="fov" value="50"/>
-		<integer name="width" value="1920"/>
-		<integer name="height" value="1080"/>
+		<float name="fov" value="40"/>
+		<integer name="width" value="1000"/>
+		<integer name="height" value="600"/>
 	</camera>
 
-	<!-- <mesh type="obj">
-		<string name="filename" value="meshes/light.obj"/>
-		<bsdf type="diffuse">
-			<color name="albedo" value="0,0,0"/>
-		</bsdf>
-		<emitter type="area">
-			<color name="radiance" value="2000,2000,2000"/>
-		</emitter>
-
-	</mesh> -->
+	<emitter type="point">
+			<point name="position" value = "0.188598, 0.236171, -0.604093"/>
+			<color name="power" value="50,50,50"/>
+	</emitter>
 
 	<!-- 0 -->
 	<emitter type="spotlight">
@@ -145,15 +139,15 @@
 
 	<mesh type="obj">
 		<string name="filename" value="meshes/cat-right.obj"/>
-		<bsdf type="diffuse">
-			<color name="albedo" value="0.01, 0.01, 0.01"/>
+		<bsdf type="orennayar">
+			<color name="R" value="0.1, 0.1, 0.1"/>
 		</bsdf>
 	</mesh>
 
   <mesh type="obj">
     <string name="filename" value="meshes/cat-left.obj"/>
-    <bsdf type="diffuse">
-      <color name="albedo" value="0.9, 0.9, 0.9"/>
+    <bsdf type="orennayar">
+      <color name="R" value="0.1, 0.1, 0.1"/>
     </bsdf>
   </mesh>
 
@@ -176,9 +170,16 @@
 
 
 	<mesh type="obj">
-		<string name="filename" value="meshes/ground.obj"/>
+		<string name="filename" value="meshes/ground-bottom.obj"/>
 		<bsdf type="diffuse">
 			<color name="albedo" value="0.75, 0.75, 0.75"/>
+		</bsdf>
+	</mesh>
+
+	<mesh type="obj">
+		<string name="filename" value="meshes/ground-top.obj"/>
+		<bsdf type="dielectric">
+			<float name="intIOR" value="1.333"/>
 		</bsdf>
 	</mesh>
 

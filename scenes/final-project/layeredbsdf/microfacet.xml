@@ -23,7 +23,9 @@
 			<matrix value="0.482906 0 0 0.0571719 0 0.482906 0 0.213656 0 0 0.482906 0.0682078 0 0 0 1"/>
 		</transform>
     <bsdf type="microfacet">
-      <color name="albedo" value="0.2,0.2,0.2"/>
+			<float name="intIOR" value="1.333"/>
+			<color name="m_kd" value="0.001, 0.001, 0.001"/>
+			<float name="alpha" value="0.01"/>
     </bsdf>
 	</mesh>
 
@@ -33,7 +35,9 @@
 			<matrix value="0.482906 0 0 0.156382 0 0.482906 0 0.777229 0 0 0.482906 0.161698 0 0 0 1"/>
 		</transform>
     <bsdf type="microfacet">
-      <color name="albedo" value="0.2,0.2,0.2"/>
+			<float name="intIOR" value="1.333"/>
+			<color name="m_kd" value="0.001, 0.001, 0.001"/>
+			<float name="alpha" value="0.01"/>
     </bsdf>
 	</mesh>
 
@@ -43,7 +47,9 @@
 			<matrix value="0.482906 0 0 0.110507 0 0.482906 0 0.494301 0 0 0.482906 0.126194 0 0 0 1"/>
 		</transform>
     <bsdf type="microfacet">
-      <color name="albedo" value="0.2,0.2,0.2"/>
+			<float name="intIOR" value="1.333"/>
+			<color name="m_kd" value="0.001, 0.001, 0.001"/>
+			<float name="alpha" value="0.01"/>
     </bsdf>
   </mesh>
 
