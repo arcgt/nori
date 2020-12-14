@@ -18,9 +18,7 @@ public:
     }
 
     virtual Color3f eval(const BSDFQueryRecord &bRec) const override {
-        if (bRec.measure != ESolidAngle
-            || Frame::cosTheta(bRec.wi) <= 0
-            || Frame::cosTheta(bRec.wo) <= 0)
+        if (Frame::cosTheta(bRec.wi) <= 0 || Frame::cosTheta(bRec.wo) <= 0)
             return Color3f(0.0f);
 
         // compute values of sinThetaI and sinThetaO
@@ -54,9 +52,7 @@ public:
     }
 
     virtual float pdf(const BSDFQueryRecord &bRec) const override {
-        if (bRec.measure != ESolidAngle
-            || Frame::cosTheta(bRec.wi) <= 0
-            || Frame::cosTheta(bRec.wo) <= 0)
+        if (Frame::cosTheta(bRec.wi) <= 0 || Frame::cosTheta(bRec.wo) <= 0)
             return 0.0f;
 
         return INV_PI * Frame::cosTheta(bRec.wo);

@@ -99,7 +99,7 @@ public:
         // following the equations in the task
         Vector3f wh = (bRec.wi + bRec.wo).normalized();
         float D = evalBeckmann(wh);
-        float J = 1 / (4*wh.dot(bRec.wo));
+        float J = 1 / (4*abs(wh.dot(bRec.wo)));
 
       	return m_ks*D*Frame::cosTheta(wh)*J + (1-m_ks)*Frame::cosTheta(bRec.wo)*INV_PI;
     }

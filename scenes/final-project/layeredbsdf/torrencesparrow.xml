@@ -1,4 +1,4 @@
-2<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <scene>
 	<integrator type="path_mis"/>
@@ -22,9 +22,9 @@
 		<transform name="toWorld" >
 			<matrix value="0.482906 0 0 0.0571719 0 0.482906 0 0.213656 0 0 0.482906 0.0682078 0 0 0 1"/>
 		</transform>
-    <bsdf type="layered">
-      <float name="omega" value="20"/>
-      <color name="R" value="0.2,0.2,0.2"/>
+    <bsdf type="torrencesparrow">
+			<float name="alpha" value="0.1"/>
+      <color name="R" value="0.99,0.99,0.99"/>
     </bsdf>
 	</mesh>
 
@@ -33,9 +33,9 @@
 		<transform name="toWorld" >
 			<matrix value="0.482906 0 0 0.156382 0 0.482906 0 0.777229 0 0 0.482906 0.161698 0 0 0 1"/>
 		</transform>
-    <bsdf type="layered">
-      <float name="omega" value="20"/>
-      <color name="R" value="0.2,0.2,0.2"/>
+    <bsdf type="torrencesparrow">
+			<float name="alpha" value="0.1"/>
+      <color name="R" value="0.99,0.99,0.99"/>
     </bsdf>
 	</mesh>
 
@@ -44,9 +44,9 @@
 		<transform name="toWorld" >
 			<matrix value="0.482906 0 0 0.110507 0 0.482906 0 0.494301 0 0 0.482906 0.126194 0 0 0 1"/>
 		</transform>
-    <bsdf type="layered">
-      <float name="omega" value="20"/>
-      <color name="R" value="0.2,0.2,0.2"/>
+    <bsdf type="torrencesparrow">
+			<float name="alpha" value="0.1"/>
+      <color name="R" value="0.99,0.99,0.99"/>
     </bsdf>
   </mesh>
 

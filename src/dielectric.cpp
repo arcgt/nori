@@ -51,7 +51,7 @@ public:
                  bRec.wi.z()
             );
             bRec.measure = EDiscrete;
-            /* Relative index of refraction: no change */
+            /* Relative index of reflection: no change */
             bRec.eta = 1.0f;
         }
         else {

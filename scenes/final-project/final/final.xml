@@ -178,9 +178,10 @@
 
 	<mesh type="obj">
 		<string name="filename" value="meshes/ground-top.obj"/>
-		<bsdf type="dielectric">
-			<float name="intIOR" value="1.333"/>
-		</bsdf>
+		<bsdf type="disney">
+      <color name="baseColor" value="0.3,0.3,0.3"/>
+			<float name="clearcoatGloss" value="1.0"/>
+    </bsdf>
 	</mesh>
 
 </scene>
