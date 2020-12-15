@@ -16,13 +16,18 @@
 			<lookat target="0.980342, 0.302223, -0.787989" origin="0.19909, 0.23391, -0.60177" up="0, 1, 0"/>
 		</transform>
 		<float name="fov" value="40"/>
-		<integer name="width" value="1000"/>
-		<integer name="height" value="600"/>
+		<integer name="width" value="1920"/>
+		<integer name="height" value="1080"/>
 	</camera>
 
 	<emitter type="point">
 			<point name="position" value = "0.188598, 0.236171, -0.604093"/>
-			<color name="power" value="50,50,50"/>
+			<color name="power" value="30,30,30"/>
+	</emitter>
+
+	<emitter type="point">
+			<point name="position" value = "0.188598, 6.236171, -0.604093"/>
+			<color name="power" value="1000,1000,1000"/>
 	</emitter>
 
 	<!-- 0 -->
@@ -134,7 +139,10 @@
 
 	<mesh type="obj">
 		<string name="filename" value="meshes/lampposts.obj"/>
-		<bsdf type="mirror"/>
+		<bsdf type="torrencesparrow">
+			<float name="alpha" value="0.1"/>
+      <color name="R" value="0.99,0.99,0.99"/>
+    </bsdf>
 	</mesh>
 
 	<mesh type="obj">
@@ -152,13 +160,19 @@
   </mesh>
 
 	<mesh type="obj">
+		<string name="filename" value="meshes/cateyes.obj"/>
+		<bsdf type="torrencesparrow">
+			<float name="alpha" value="0.2"/>
+      <color name="R" value="0.99,0.99,0.99"/>
+    </bsdf>
+	</mesh>
+
+	<mesh type="obj">
 		<string name="filename" value="meshes/adcolumns.obj"/>
-		<bsdf type="mirror">
-			<color name="albedo" value="0.5, 0.5, 0.9"/>
-		</bsdf>
-		<!-- <emitter type="area">
-			<color name="radiance" value="200,200,200"/>
-		</emitter> -->
+		<bsdf type="torrencesparrow">
+			<float name="alpha" value="0.1"/>
+      <color name="R" value="0.99,0.99,0.99"/>
+    </bsdf>
 	</mesh>
 
 	<mesh type="obj">
@@ -168,20 +182,12 @@
 		</bsdf>
 	</mesh>
 
-
 	<mesh type="obj">
-		<string name="filename" value="meshes/ground-bottom.obj"/>
-		<bsdf type="diffuse">
-			<color name="albedo" value="0.75, 0.75, 0.75"/>
+		<string name="filename" value="meshes/ground.obj"/>
+		<bsdf type="layered">
+			<float name="sigma" value="20"/>
+			<color name="R" value="0.01,0.01,0.01"/>
 		</bsdf>
-	</mesh>
-
-	<mesh type="obj">
-		<string name="filename" value="meshes/ground-top.obj"/>
-		<bsdf type="disney">
-      <color name="baseColor" value="0.3,0.3,0.3"/>
-			<float name="clearcoatGloss" value="1.0"/>
-    </bsdf>
 	</mesh>
 
 </scene>

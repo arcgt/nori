@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<scene version="2.0.0" >
+	<integrator type="path">
+			<!-- Instantiate a path tracer with a max. path length of 8 -->
+			<integer name="max_depth" value="2"/>
+	</integrator>
+
+	<!-- Instantiate a perspective camera with 45 degrees field of view -->
+	<sensor type="perspective">
+			<!-- Rotate the camera around the Y axis by 180 degrees -->
+			<transform name="to_world">
+				<lookat target="0, 0, 0" origin="0, 0, 5" up="0, 1, 0"/>
+			</transform>
+			<float name="fov" value="50"/>
+
+			<!-- Render with 32 samples per pixel using a basic
+					 independent sampling strategy -->
+			<sampler type="independent">
+					<integer name="sample_count" value="512"/>
+			</sampler>
+
+			<!-- Generate an EXR image at HD resolution -->
+			<film type="hdrfilm">
+				<integer name="height" value="600"/>
+				<integer name="width" value="800"/>
+			</film>
+	</sensor>
+
+	<shape type="obj">
+		<string name="filename" value="meshes/spotlight-lamppost.obj"/>
+
+		<bsdf type="diffuse">
+		</bsdf>
+	</shape>
+
+	<shape type="obj">
+		<string name="filename" value="meshes/spotlight-walls.obj"/>
+
+		<bsdf type="diffuse">
+		</bsdf>
+	</shape>
+
+	<shape type="obj">
+		<string name="filename" value="meshes/spotlight-light.obj"/>
+
+		<emitter type="area">
+			<rgb name="radiance" value="1,1,1"/>
+		</emitter>
+	</shape>
+
+  <emitter type="spot">
+			<transform name="to_world">
+					<!-- Orient the light so that points from (1, 1, 1) towards (1, 2, 1) -->
+					<lookat origin="0, 1.22, 0" target="0, -5, 0"/>
+			</transform>
+			<rgb name="intensity" value="15.9, 15.9, 15.9"/>
+      <float name="cutoff_angle" value="60"/>
+      <float name="beam_width" value="20"/>
+  </emitter>
+</scene>
