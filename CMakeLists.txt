@@ -86,8 +86,9 @@ add_executable(nori
   src/path_mis.cpp
   src/spotlight.cpp
   src/orennayar.cpp
-  src/layered.cpp
   src/torrencesparrow.cpp
+  src/layered.cpp
+  src/fresnelblend.cpp
 )
 
 # The following lines build the warping test application

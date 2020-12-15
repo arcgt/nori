@@ -23,7 +23,7 @@
 			<matrix value="0.482906 0 0 0.0571719 0 0.482906 0 0.213656 0 0 0.482906 0.0682078 0 0 0 1"/>
 		</transform>
     <bsdf type="layered">
-      <float name="omega" value="20"/>
+      <float name="sigma" value="20"/>
       <color name="R" value="0.2,0.2,0.2"/>
     </bsdf>
 	</mesh>
@@ -34,7 +34,7 @@
 			<matrix value="0.482906 0 0 0.156382 0 0.482906 0 0.777229 0 0 0.482906 0.161698 0 0 0 1"/>
 		</transform>
     <bsdf type="layered">
-      <float name="omega" value="20"/>
+      <float name="sigma" value="20"/>
       <color name="R" value="0.2,0.2,0.2"/>
     </bsdf>
 	</mesh>
@@ -45,7 +45,7 @@
 			<matrix value="0.482906 0 0 0.110507 0 0.482906 0 0.494301 0 0 0.482906 0.126194 0 0 0 1"/>
 		</transform>
     <bsdf type="layered">
-      <float name="omega" value="20"/>
+      <float name="sigma" value="20"/>
       <color name="R" value="0.2,0.2,0.2"/>
     </bsdf>
   </mesh>
@@ -59,7 +59,7 @@
 
   <emitter type="point">
 		<point name="position" value = "4,4,4"/>
-		<color name="power" value="1500,1500,1500"/>
+		<color name="power" value="2000,2000,2000"/>
 	</emitter>
 
 </scene>
