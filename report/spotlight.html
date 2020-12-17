@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Final Project Report - Tianhong Gan</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+	          <i class="fa fa-bars"></i>
+	          <span class="sr-only">Toggle Menu</span>
+	        </button>
+        </div>
+	  		<h1><a href="index.html" class="logo">FINAL REPORT</a></h1>
+        <ul class="list-unstyled components mb-5">
+          <li>
+            <a href="index.html">Motivation</a>
+          </li>
+          <li>
+              <a href="modelling.html">Modelling</a>
+          </li>
+          <li class="active">
+            <a href="spotlight.html">Spotlight</a>
+          </li>
+          <li>
+            <a href="bsdf.html">Layered BSDF</a>
+          </li>
+          <li>
+            <a href="fur.html">Fur Rendering</a>
+          </li>
+          <li>
+            <a href="submission.html">Final Submission</a>
+          </li>
+          <li>
+            <a href="references.html">References</a>
+          </li>
+        </ul>
+
+    	</nav>
+
+        <!-- Page Content  -->
+      <div id="content" class="p-4 p-md-5 pt-5">
+        <h2 class="mb-4">Spotlight (5 pts)</h2>
+        <p>In my desired scene, there are several lampposts. Each of these cast light in a cone-like shape, before being reflected off different surfaces throughout the scene. The best way to implement this is through the use of spotlights.</p>
+
+        <h4>Implementation (3 Hours)</h4>
+        <p>A spotlight, like a point light (that we implemented in exercise 1), is a delta light. The difference between the two is that a point light emits light uniformly in all directions, whereas spotlights are highly directional, and emit light only in a specific direction and over a specific solid angle. I began by using my previously implemented pointlight.cpp class as a template, then added parameters for direction and subtended solid angle. Following this, I was able to implement the methods for a suitable spotlight class following the explanation given in the PBR Book, in section <a href="http://www.pbr-book.org/3ed-2018/Light_Sources/Point_Lights.html#Spotlights">12.3.1 - Spotlights</a>.</p>
+        <p>The method requires three new parameters (in addition to power and position, which were already used in pointlight.cpp) - the direction of the beam of light, the start of the fall off angle (of which the spotlight intensity begins to drop), and the total spotlight width angle (after which there is no illumination).</p>
+        <p>The method is implemented such that while the angle subtended from the direction of the beam is smaller than the fall off angle, the illumination is at full intensity, and after the subtended angle passes the total beam width, the illumination is zero. Between these two angles, there is a smooth transition between full intensity and zero intensity.</p>
+        <p>For more details regarding the specific method, see the comments in the code: <code>nori/src/spotlight.cpp</code> </p>
+
+        <h4>Validation (3 Hours)</h4>
+        <p>To validate, I initially rendered the scene consisting of a single lamppost from my desired scene, using only a single emitter (the spotlight I implemented). This is shown below:</p>
+        <div>
+          <img src="images/spotlight/spotlight.png" width="500">
+        </div><br>
+        <p>However, I found that this appeared slightly unrealistic, as the area on the lamppost that should be emitting the light that creates the spotlight is completely dim (which is to be expected, as the implemented spotlight is a delta light, and for this part to be lit up, I would have to have added an area light rather than a spotlight). Therefore, to achieve the desired effect (spotlight, such that the actual 'light' part of the lamppost is lit up), I used instead two emitters - the spotlight that I originally had in the scene, plus an area emitter for the section of the light that should be lit up. The overall lighting effect comes from the spotlight rather than the area light as the intensity of the spotlight is hundreds of times larger than that of the area light (I set the intensity of the area emitter to the minimum possible value such that it appears bright, however contributes only an infinitesimal amount to the actual lighting in the environment). Like this, I was able to achieve what looks like a much more realistic lamppost, as shown below: </p>
+        <div>
+          <img src="images/spotlight/spotlight-area.png" width="500">
+        </div><br>
+
+        <p>Having achieved my desired effect, I proceeded to validate my renderer against Mitsuba's renderer (applying the same affects specified before, with the spotlight and the arealight). The side by side comparison is shown below (mine on the left, Mitsuba's on the right):</p>
+        <div>
+          <img src="images/spotlight/spotlight-area.png" width="500">
+          <img src="images/spotlight/spotlight-area-v.png" width="500">
+        </div><br>
+
+        <p>I found that my spotlight rendering was quite different to Mitsuba's in terms of the brightness after the fall-off angle. After consulting the source code of Mitsuba compared to my own, I found that the version I implemented (following the PBR Book) was indeed slightly different, in that for the calculation of the falloff, I used:</p>
+
+        <p><code>(delta * delta) * (delta * delta)</code>,</p>
+
+        <p>where:</p>
+
+        <code>delta = (cosTheta - m_cosTotalWidth) / (m_cosFalloffStart - m_cosTotalWidth);</code><br><br>
+
+        <p>On the other hand, in Mitsuba, the implementation was closer to if I had simply returned <code>delta</code>. Below shows a comparison using my renderer where from the left to the right, the falloff is calculated by:</p>
+
+        <ol>
+          <li><code>(delta * delta) * (delta * delta)</code></li>
+          <li><code>delta * delta</code></li>
+          <li><code>delta</code></li>
+        </ol>
+
+        <div>
+          <img src="images/spotlight/spotlight-area.png" width="330">
+          <img src="images/spotlight/spotlight-area-deltadelta.png" width="330">
+          <img src="images/spotlight/spotlight-area-delta.png" width="330">
+        </div><br>
+
+        <p>As can be observed, calculating the falloff using simply <code>delta</code> on my render returns an effect more similar to that of Mitsuba's (comparison below: mine on the left, Mitsuba's on the right).</p>
+
+        <div>
+          <img src="images/spotlight/spotlight-area-delta.png" width="500">
+          <img src="images/spotlight/spotlight-area-v.png" width="500">
+        </div><br>
+
+        <p>There additionally appears to be a difference in colour between the two renders, however I believe this is due to the <code>hdrfilm</code> parameter used in Mitsuba's camera, which allows a higher dynamic range (blacks to be darker and whites to be brighter) compared to my renderer, or alternatively due to how lighting intensity is calculated in Mitsuba compared to nori (I did Nori power / 4*PI). </p>
+
+        <h5 style="text-align:right"><a href="bsdf.html">Next: Layered BSDF →</a></h5>
+      </div>
+		</div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

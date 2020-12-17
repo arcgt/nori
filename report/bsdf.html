@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Final Project Report - Tianhong Gan</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+	          <i class="fa fa-bars"></i>
+	          <span class="sr-only">Toggle Menu</span>
+	        </button>
+        </div>
+	  		<h1><a href="index.html" class="logo">FINAL REPORT</a></h1>
+        <ul class="list-unstyled components mb-5">
+          <li>
+            <a href="index.html">Motivation</a>
+          </li>
+          <li>
+              <a href="modelling.html">Modelling</a>
+          </li>
+          <li>
+            <a href="spotlight.html">Spotlight</a>
+          </li>
+          <li class="active">
+            <a href="bsdf.html">Layered BSDF</a>
+          </li>
+          <li>
+            <a href="fur.html">Fur Rendering</a>
+          </li>
+          <li>
+            <a href="submission.html">Final Submission</a>
+          </li>
+          <li>
+            <a href="references.html">References</a>
+          </li>
+        </ul>
+
+    	</nav>
+
+        <!-- Page Content  -->
+      <div id="content" class="p-4 p-md-5 pt-5">
+        <h2 class="mb-4">Layered BSDF (15 pts)</h2>
+        <p>A major part of my desired scene was to have lights reflecting off a freshly rained on ground. The best way to implement this, I found, was to implement a layered BSDF composing of a diffuse surface coated by a thin layer of dielectric material.</p>
+        <p>The diagram below, taken from <a href="https://mitsuba2.readthedocs.io/en/latest/generated/plugins.html#internal-scattering">Mitsuba (Internal Scattering Section)</a>, demonstrates a rough concept of how this works:</p>
+        <div>
+          <img src="images/layered/diagram-mitsuba.png" width="600">
+        </div><br><br>
+
+        <p>Following the implementation in the <a href="https://www.cg.tuwien.ac.at/research/publications/2007/weidlich_2007_almfs/weidlich_2007_almfs-paper.pdf">Weidlich and Wilkie</a> paper, which simplifies the above concept with a few assumptions, I first decided to implement the three types of interfaces they used to test different configurations (Figure 6 in the paper). This consisted of a Torrance-Sparrow model, a diffuse model, and a smooth model. For the diffuse surface, I decided to implement the Oren-Nayar model, and for the smooth surface, I simply took the previously implemented dielectric model from exercise 4.</p>
+
+        <p>Below is a list of the main source code that I added/modified to implement the layered BSDF:</p>
+        <ul>
+          <li><code>src/orennayar.cpp</code></li>
+          <li><code>src/diffuse.cpp</code></li>
+          <li><code>src/dielectric.cpp</code></li>
+          <li><code>src/torrancesparrow.cpp</code></li>
+          <li><code>src/layered.cpp</code></li>
+          <li><code>src/fresnelblend.cpp</code></li>
+        </ul>
+
+        <h4>The Oren-Nayar Model (6 Hours)</h4>
+        <p>I implemented my Oren-Nayar model with help from the <a href="http://www.pbr-book.org/3ed-2018/Reflection_Models/Microfacet_Models.html#OrenndashNayarDiffuseReflection">PBR Book, Section 8.4.1 (Oren-Nayar Diffuse Reflection)</a>. The Oren-Nayar model has the same concept as microfacet models (previously implemented), however assumes that rough surfaces have V-shaped facets that are diffuse. As a result, inter-reflections can be accounted for. There is no analytic solution to this model, thus the model was implemented based on fitted approximations as follows (equations taken from class slides 05 - Microfacet Theory, Page 63):</p>
+        <div>
+          <img src="images/layered/equations.jpeg" width="500">
+        </div><br>
+
+        <p>The resulting render using my implementation of the Oren-Nayar model on Nori is shown below for sigma equal to 20, 10 and 0 from left to right. We can clearly see the darkening (especially at the edges/sides) as sigma tends to 0. The Oren-Nayar model at sigma = 0 is the same as the ideal Lambertian diffuse model.</p>
+        <div>
+          <img src="images/layered/orennayar20.png" width="330">
+          <img src="images/layered/orennayar10.png" width="330">
+          <img src="images/layered/orennayar0.png" width="330">
+        </div><br>
+
+        <p>In terms of validation, Mitsuba did not have an implementation of the Oren-Nayar model. However, a threeway comparision with my newly implemented Oren-Nayar model with sigma = 0 (left), the given ideal Lambertian diffuse model from the Nori exercises (centre), and Mitsuba's implementation of the Lambertian diffuse model (right) can be seen below:</p>
+        <div>
+          <img src="images/layered/orennayar0.png" width="330">
+          <img src="images/layered/diffuse.png" width="330">
+          <img src="images/layered/diffuse-mitsuba.png" width="330">
+        </div><br>
+        <p>As can be observed, my implemention of the Oren-Nayar model at sigma = 0 produces the same output as the given model of the ideal Lambertian diffuse surface from the Nori exercises. This shows that the model was likely correctly implemented. The Mitsuba version appears slightly brighter than the other two models, however I believe this is due to the differences in the way lighting intensity is calculated in Mitsuba / camera hdrfilm / integrator max depth value rather than a problem with the BSDF model itself.</p>
+
+        <h4>The Dielectric Model (Previously Implemented)</h4>
+        <p>The following material ball shows the previously implemented ideal dielectric BSDF from exercise 4, which had already been tested and validated: </p>
+        <div>
+          <img src="images/layered/dielectric.png" width="400">
+        </div><br>
+
+        <h4>The Torrance-Sparrow Model (1.5 Hour)</h4>
+        <p>Finally, I implemented the Torrance-Sparrow (reflection) model, also with help from the <a href="http://www.pbr-book.org/3ed-2018/Reflection_Models/Microfacet_Models.html#TheTorrancendashSparrowModel">PBR Book, Section 8.4.4 (The Torrance-Sparrow Model)</a>. This model was developed in order to model metallic surfaces, using a collection of perfectly smooth mirrored microfacets that are perfectly specular. The Torrance-Sparrow BSDF is given as:</p>
+        <div>
+          <img src="images/layered/ts-equation.png" width="400">
+        </div><br>
+
+        <p>The output of the model with alpha (roughness parameter) equal to 0.1 is shown below:</p>
+        <div>
+          <img src="images/layered/torrancesparrow.png" width="400">
+        </div><br>
+        <p>In the end I did not use the Torrance-Sparrow model for my layered BSDF as it was not needed to create my desired effect (dielectric on diffuse). However, I still decided to include my implementation for completeness.</p>
+
+        <h4>The Weidlich and Wilkie Layered BSDF (7 Hours)</h4>
+        <p>The <a href="https://www.cg.tuwien.ac.at/research/publications/2007/weidlich_2007_almfs/weidlich_2007_almfs-paper.pdf">Weidlich and Wilkie</a> model simplfies the layered BSDF concept summarised at the beginning in four ways:</p>
+        <ul>
+          <li>The thickness of the layers should be a lot smaller than the extent of the microfacet horizontally.</li>
+          <li>All rays generated in the lower layers (after refraction and reflection) should exit through the original point of entry. </li>
+          <li>Refraction rays generated are assumed to meet at a single point on the lower surface.</li>
+          <li>All light scattering is due to reflection at the boundary between layers (no scattering within individual layers).</li>
+        </ul>
+
+        <p>The overall BSDF is evaluated first at the topmost level (for the two directions given, wi and wo), yielding a reflected ray and a refracted ray. Energy refracted to the next level follows the refraction directions of the two original rays, and is absorbed as it travels through the material. The two refracted directions are assumed to meet at a single point at the boundary of the surface below, then return to the surface, adding back to the total BSDF. The exact equations for calculating BSDF (including absorbtion) are given in the paper from equations 2 to 6.</p>
+
+        <p>I was able to understand the theoretical concept quite well, however it took me a long time to understand how to implement this interaction of multiple BSDFs within Nori. I read the implementation of the 'Plastic' material in the <a href="http://www.pbr-book.org/3ed-2018/Materials/Material_Interface_and_Implementations.html#PlasticMaterial">PBR Book, Section 9.2.2 (Plastic Material)</a>, which used a Materal class to interface the BSDFs, but this seemed to ultimately be too complicated if I only wished to implement one specific layered BSDF of dielectric coating on diffuse. As a result, I simply hardcoded a simplification of the interaction described in the Weidlich and Wilkie paper for a dielectric coating on a diffuse surface in a single BSDF.</p>
+
+        <p>The resulting output of my implementation of a dielectric coating on the Oren-Nayar surface (sigma = 20) is shown below:</p>
+        <div>
+          <img src="images/layered/layered.png" width="400">
+        </div><br>
+
+        <p>For verification, the below comparison shows my implementation setting sigma to 0 (left) compared to <a href="https://mitsuba2.readthedocs.io/en/latest/generated/plugins.html#smooth-plastic-material-plastic">Mitsuba's implementation</a> with a dielectric coating on top of an ideal Lambertian diffuse surface (right):</p>
+        <div>
+          <img src="images/layered/layereddiffuse.png" width="400">
+          <img src="images/layered/layered-mitsuba.png" width="400">
+        </div><br>
+
+        <p>As can be observed, these two images have little to no difference, despite the approximations made in the Weidlich and Wilkie model.</p>
+
+        <h4>Fresnel Blend (1.5 Hours)</h4>
+        <p>Another, simpler type of layered BSDF I tried to implement while I had struggled with the above Weidlich and Wilkie implementation was the Fresnel Blend model following the <a href="http://www.pbr-book.org/3ed-2018/Reflection_Models/Fresnel_Incidence_Effects.html">PBR Book, Section 8.5 (Fresnel Incidence Effects)</a>, which used a very similar technique to what was used for the microfacet model in the exercises. The resulting output is shown below:</p>
+        <div>
+          <img src="images/layered/fresnelblend.png" width="400">
+        </div><br>
+        <p>I did not verify this as it was just an extra bit of work I did that I don't plan to use in the final render.</p>
+
+        <p>All models in this section were displayed under a single point light source.</p>
+
+        <h5 style="text-align:right"><a href="fur.html">Next: Fur Rendering →</a></h5>
+		</div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

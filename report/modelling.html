@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Final Project Report - Tianhong Gan</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+	          <i class="fa fa-bars"></i>
+	          <span class="sr-only">Toggle Menu</span>
+	        </button>
+        </div>
+	  		<h1><a href="index.html" class="logo">FINAL REPORT</a></h1>
+        <ul class="list-unstyled components mb-5">
+          <li>
+            <a href="index.html">Motivation</a>
+          </li>
+          <li class="active">
+              <a href="modelling.html">Modelling</a>
+          </li>
+          <li>
+            <a href="spotlight.html">Spotlight</a>
+          </li>
+          <li>
+            <a href="bsdf.html">Layered BSDF</a>
+          </li>
+          <li>
+            <a href="fur.html">Fur Rendering</a>
+          </li>
+          <li>
+            <a href="submission.html">Final Submission</a>
+          </li>
+          <li>
+            <a href="references.html">References</a>
+          </li>
+        </ul>
+
+    	</nav>
+
+        <!-- Page Content  -->
+      <div id="content" class="p-4 p-md-5 pt-5">
+        <h2 class="mb-4">Modelling</h2>
+
+        <h4>Finding the models (2 Hours)</h4>
+        <p>To model the scene mesh of my motivational image, I began by searching for some free available 3D models of streets and cats. After acquiring a <a href="https://www.cgtrader.com/free-3d-models/exterior/street/street-87943b69-51c4-4f67-8d3c-ea772a7362af">city model</a> and <a href="https://www.cgtrader.com/free-3d-models/animals/other/cat-v1-df2f833c-7413-4f1e-93c3-f805a711095d">cat model</a> separately from CGTrader, I proceeded to piece together and reposition these models in Blender such that they fit my anticipated scene.</p>
+
+        <p>The initial models of the city and cat are shown below:</p>
+
+        <div>
+          <p><b>City:</b></p>
+          <img src="images/modelling/building-initial.png" width="500"><br><br>
+          <p><b>Cat:</b></p>
+          <img src="images/modelling/cat-initial.png" width="500"><br><br>
+        </div><br>
+
+        <h4>Remodelling, repositioning... (7 Hours)</h4>
+        <p>In terms of the street, not much was needed in order to achieve the scene I required for my final rendering. All I needed to do was find the perspective of an optimal street and remove the rest of the surrounding buildings (which were unneeded in the scene).</p>
+        <div>
+          <p><b>After building removal:</b></p>
+          <img src="images/modelling/street-adjust.png" width="500"><br><br>
+          <p><b>After adjusting perspective:</b></p>
+          <img src="images/modelling/street-perspective.png" width="500"><br><br>
+        </div>
+
+        <p>In terms of the two cats which would be required in the my desired scene, the remodelling was a bit more complex. As the imported cats were standing in a rigid position, some repositioning was necessary in order to achieve my desired positions (i.e. of the two cats crossing paths with their tails intertwined in the shape of a heart). I initially tried to do this using a "Bezier Curve" in Blender, to no avail. Eventually, I found that the easiest way would be to add an armature (bones) to my cats using Blender, then remodel the cat using Blender's "Pose" feature. This ended up working well, however took quite some time overall as I had to familiarize myself with how to use Blender and its features. Below shows the armature and pose modification for the cat on the right:</p>
+        <div>
+          <p><b>After adding armature:</b></p>
+          <img src="images/modelling/cat-armature.png" width="500"><br><br>
+          <p><b>After posing:</b></p>
+          <img src="images/modelling/cat-pose.png" width="500"><br><br>
+        </div><br>
+
+        <h4>Lights, camera, action! (1 Hour)</h4>
+        <p>Finally, to complete the modelling of my desired scene, I had to find an appropriate camera angle to display the street and the cats such that the cats were large enough to be the centre-piece of the composition (while maintaining the correct scale with respect to the buildings) and that their tails were intertwined (as this only happens at a very specifc angle). I also added from rudimentary lights (spotlight + area emitter at each lamppost, point light at the position of the camera to imitate camera flash) to light up the scene. This was all done using Blender.</p>
+        <div>
+          <p><b>Cameras and lights:</b></p>
+          <img src="images/modelling/camera-and-lights.png" width="500"><br><br>
+          <p><b>Camera view:</b></p>
+          <img src="images/modelling/camera-perspective.png" width="500"><br><br>
+        </div>
+
+        <p>An example rendering of the camera view with the set up lights can be seen below, which also gives a better indication of my desired scene from my motivation. This is mainly to demonstrate my desired scene (not including lighting and texture/BSDFs, which will be implemented in later steps using my nori renderer).</p>
+        <div>
+          <p><b>Render:</b></p>
+          <img src="images/modelling/model-final.png" width="500"><br><br>
+        </div>
+
+        <h5 style="text-align:right"><a href="spotlight.html">Next: Spotlight →</a></h5>
+      </div>
+		</div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Final Project Report - Tianhong Gan</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+	          <i class="fa fa-bars"></i>
+	          <span class="sr-only">Toggle Menu</span>
+	        </button>
+        </div>
+	  		<h1><a href="index.html" class="logo">FINAL REPORT</a></h1>
+        <ul class="list-unstyled components mb-5">
+          <li>
+            <a href="index.html">Motivation</a>
+          </li>
+          <li>
+              <a href="modelling.html">Modelling</a>
+          </li>
+          <li>
+            <a href="spotlight.html">Spotlight</a>
+          </li>
+          <li>
+            <a href="bsdf.html">Layered BSDF</a>
+          </li>
+          <li>
+            <a href="fur.html">Fur Rendering</a>
+          </li>
+          <li>
+            <a href="submission.html">Final Submission</a>
+          </li>
+          <li class="active">
+            <a href="references.html">References</a>
+          </li>
+        </ul>
+    	</nav>
+
+        <!-- Page Content  -->
+      <div id="content" class="p-4 p-md-5 pt-5">
+        <h2 class="mb-4">References + Materials</h2>
+
+        <p>This page lists all the references and materials I have used in each section of my final project.</p>
+
+        <h4>Modelling</h4>
+        <ul>
+            <li><a href="https://www.cgtrader.com/free-3d-models/exterior/street/street-87943b69-51c4-4f67-8d3c-ea772a7362af">City model</a> - author: Kvngzalez, site: CGTrader</li>
+            <li><a href="https://www.cgtrader.com/free-3d-models/animals/other/cat-v1-df2f833c-7413-4f1e-93c3-f805a711095d">Cat model</a> - author: googlefish, site: CGTrader</li>
+            <li><a href="https://www.blender.org">Blender</a> - a free and open source 3D creation suite.</li>
+        </ul>
+
+        <h4>Spotlight</h4>
+        <ul>
+            <li><a href="http://www.pbr-book.org/3ed-2018/Light_Sources/Point_Lights.html#Spotlights">PBR Book, Section 12.3.1 (Spotlights)</a> - my spotlight is implemented based off this.</li>
+            <li><a href="https://mitsuba2.readthedocs.io/en/latest/generated/plugins.html#emitters">Mitsuba 2, Section Emitters (Spotlight Source)</a> - a retargetable forward and inverse renderer used for validation.</li>
+        </ul>
+
+        <h4>Layered BSDF</h4>
+        <ul>
+          <li><a href="https://benedikt-bitterli.me/resources/">Material Test Ball</a> - created by Benedikt Bitterli, the model used for testing my implemented BSDFs.</li>
+          <li><a href="https://www.cg.tuwien.ac.at/research/publications/2007/weidlich_2007_almfs/weidlich_2007_almfs-paper.pdf">Weidlich and Wilkie</a> - reference to the layered BSDF method I tried to implement (paper).</li>
+          <li><a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.10.8696&rep=rep1&type=pdf">Generalization of Lambert's Reflectance Model</a> - the Oren-Nayar model (paper).</li>
+          <li><a href="http://www.pbr-book.org/3ed-2018/Reflection_Models/Microfacet_Models.html#OrenndashNayarDiffuseReflection">PBR Book, Section 8.4.1 (Oren-Nayar Diffuse Reflection)</a> - I implemented my rough diffuse surface based on this.</li>
+          <li><a href="http://www.pbr-book.org/3ed-2018/Reflection_Models/Microfacet_Models.html#TheTorrancendashSparrowModel">PBR Book, Section 8.4.4 (The Torrance-Sparrow Model)</a> - referenced to implement my Torrance-Sparrow model.</li>
+          <li><a href="http://www.pbr-book.org/3ed-2018/Materials/Material_Interface_and_Implementations.html#PlasticMaterial">PBR Book, Section 9.2.2 (Plastic Material)</a> - the model I wanted to implement with thin dielectric over diffuse.</li>
+          <li><a href="http://www.pbr-book.org/3ed-2018/Reflection_Models/Fresnel_Incidence_Effects.html">PBR Book, Section 8.5 (Fresnel Incidence Effects)</a> - to implement the Fresnel Blend.</li>
+          <li><a href="https://mitsuba2.readthedocs.io/en/latest/generated/plugins.html#smooth-plastic-material-plastic">Mitsuba Smooth Plasic Material</a> - used for validation.</li>
+          <li><a href="https://mitsuba2.readthedocs.io/en/latest/generated/plugins.html#rough-conductor-material-roughconductor">Mitsuba Rouch Conductor Material</a> - used for validation.</li>
+          <li><a href="https://mitsuba2.readthedocs.io/en/latest/generated/plugins.html#smooth-diffuse-material-diffuse">Mitsuba Smooth Diffuse Material</a> - used for validation.</li>
+        </ul>
+
+        <h4>Fur Rendering</h4>
+        <ul>
+          <li><a href="http://www.graphics.stanford.edu/papers/hair/hair-sg03final.pdf">Marschner, Light Scattering from Human Hair Fibers</a> - reference paper.</li>
+          <li><a href="https://www.researchgate.net/profile/Eugene_DEon/publication/220506677_An_Energy-Conserving_Hair_Reflectance_Model/links/59dc2874a6fdcc1ec89fb0c0/An-Energy-Conserving-Hair-Reflectance-Model.pdf">d'Eon11, An Energy-Conserving Hair Reflectance Model</a> - reference paper.</li>
+          <li><a href="https://cg.ivd.kit.edu/publications/pubhanika/2013_hairbrief.pdf">d'Eon13, Importance Sampling for Physically-Based Hair Fiber Models</a> - reference paper.</li>
+          <li><a href="http://www.pbr-book.org/3ed-2018/Shapes/Curves.html">PBR Book, Section 3.7 (Curves)</a> - referenced for implementation of curve primitives.</li>
+          <li><a href="https://pbrt.org/hair.pdf">Matt Pharr, The Implementation of a Hair Scattering Model</a> -reference material.</li>
+        </ul>
+
+        <h5 style="text-align:right">-End</h5>
+		</div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

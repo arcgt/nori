@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Final Project Report - Tianhong Gan</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+	          <i class="fa fa-bars"></i>
+	          <span class="sr-only">Toggle Menu</span>
+	        </button>
+        </div>
+	  		<h1><a href="index.html" class="logo">FINAL REPORT</a></h1>
+        <ul class="list-unstyled components mb-5">
+          <li>
+            <a href="index.html">Motivation</a>
+          </li>
+          <li>
+              <a href="modelling.html">Modelling</a>
+          </li>
+          <li>
+            <a href="spotlight.html">Spotlight</a>
+          </li>
+          <li>
+            <a href="bsdf.html">Layered BSDF</a>
+          </li>
+          <li class="active">
+            <a href="fur.html">Fur Rendering</a>
+          </li>
+          <li>
+            <a href="submission.html">Final Submission</a>
+          </li>
+          <li>
+            <a href="references.html">References</a>
+          </li>
+        </ul>
+
+    	</nav>
+
+        <!-- Page Content  -->
+      <div id="content" class="p-4 p-md-5 pt-5">
+        <h2 class="mb-4">Fur Rendering (40 pts)</h2>
+        <p>I decided to attempt fur rendering as the foreground and focal point of my desired scene consisted of two cats, which would greatly benefit from the addition of fur rendering to my renderer. In order to render the fur for my cats, I need to model the curve primitives, devise an acceleration structure to speed up the intersection computation, and finally implement the Marschner hair BSDF with importance sampling.</p>
+
+        <h4>Curve Primitives + Acceleration Structure (6 Hours)</h4>
+        <p>To implement the curve primitives and compute intersections, I followed the explanations in the <a href="http://www.pbr-book.org/3ed-2018/Shapes/Curves.html">PBR Book, Section 3.7 (Curves)</a>, which includes both a method to model the curve primitives as well as an intersection algorithm to accelerate the render.</p>
+
+        <p>While it is possible to model thin shapes such as fur using triangles, a better way is to create a specialised shape such as a cubic Bezier curve. For the implementation of fur, it is best to use a flat curve, which is always oriented such that it faces the ray being intersected with them. The curve is defined by four control points (p0, p1, p2, p3). It passes through the first and last control points (u = 0 and u = 1), and intermediate points are given by a polynomial equation:</p>
+        <div>
+          <img src="images/fur/curve-eq.png" width="500">
+        </div><br>
+        <p>It is beneficial to split the curve into segments to allow bounding boxes, which can be computed by taking advantage of the convex hull property (Bezier curves lie within the convex hull of their control points), to better fit around wiggly curves. From the PBR Book - "The Curve intersection algorithm is based on discarding curve segments as soon as it can be determined that the ray definitely doesn’t intersect them and otherwise recursively splitting the curve in half to create two smaller segments that are then tested. Eventually, the curve is linearly approximated for an efficient intersection test. After some preparation, the recursiveIntersect() call starts this process with the full segment that the Curve represents."</p>
+
+        <p>I attempted to implement this in <code>src/curves.cpp</code> step by step following the instructions in <a href="http://www.pbr-book.org/3ed-2018/Shapes/Curves.html">PBR Book, Section 3.7 (Curves)</a>. I was able to read through the entire PBR implementation, however I did not have enough time to write all the functions as specifed in the PBR book in a Nori-compatible way and so could not produce any output images using this feature for validation or use this feature in my final render.</p>
+
+        <h4>Marschner Hair BSDF</h4>
+        <p>In the end, I could not implement this feature after reading the papers (listed in reference), due to lack of time.</p>
+
+        <p></p>
+
+        <h5 style="text-align:right"><a href="submission.html">Next: Final Submission →</a></h5>
+		</div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

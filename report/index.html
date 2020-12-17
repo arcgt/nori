@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Final Project Report - Tianhong Gan</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+	          <i class="fa fa-bars"></i>
+	          <span class="sr-only">Toggle Menu</span>
+	        </button>
+        </div>
+	  		<h1><a href="index.html" class="logo">FINAL REPORT</a></h1>
+        <ul class="list-unstyled components mb-5">
+          <li class="active">
+            <a href="motivation.html">Motivation</a>
+          </li>
+          <li>
+              <a href="modelling.html">Modelling</a>
+          </li>
+          <li>
+            <a href="spotlight.html">Spotlight</a>
+          </li>
+          <li>
+            <a href="bsdf.html">Layered BSDF</a>
+          </li>
+          <li>
+            <a href="fur.html">Fur Rendering</a>
+          </li>
+          <li>
+            <a href="submission.html">Final Submission</a>
+          </li>
+          <li>
+            <a href="references.html">References</a>
+          </li>
+        </ul>
+
+    	</nav>
+
+        <!-- Page Content  -->
+      <div id="content" class="p-4 p-md-5 pt-5">
+        <h2 class="mb-4">Final Project Report - Purrfect Timing</h2>
+
+        <p>The following report documents the features that I have implemented for my final project of the course Computer Graphics. The given theme this year is "Perfect Timing".</p>
+
+        <h4>Motivation</h4>
+        <p>There is so much happening around us everyday, all seemingly completely random, affected by so many random variables. But, sometimes, almost as if we were in a film, there are things that seem to happen with the perfect timing. My composition wishes to convey a chance encounter, seemingly an act of fate, that leads to the start of a new relation. This is represented by two felines that happen to cross each others' paths admist a busy world, capturing the moment where their tails intertwine to form the shape of a heart in a moment of stillness. Whether it be timing, angle, or focus, this chance encounter requires an absolutely... Purrfect timing.</p>
+
+        <p>My proposed motivational image is composed of two parts: a background and a foreground. The background is a street, wet from a recent rainfall, and has many lights reflected from the wet surfaces in the scene. The foreground contains two cats, who walk by the middle of the street with a perfect timing such that their tails intertwine to form the shape of a heart. The background, together with the foreground, aim to set up an atmosphere of refreshing calm admist a busy world, a moment where despite the busyness, time stops for a moment. Below shows a few examples of what the background and foreground could look like.</p>
+
+        <p><b>Background:</b></p>
+        <div>
+          <img src="images/proposal/street.jpg" height="200">
+          <img src="images/proposal/street2.jpg" height="200">
+          <img src="images/proposal/street3.jpg" height="200">
+          <img src="images/proposal/street4.jpg" height="200">
+          <!-- <img src="images/proposal/street5.png" height="200"> -->
+        </div><br>
+
+        <p><b>Foreground:</b></p>
+        <div>
+          <img src="images/proposal/cattail2.jpg" height="200">
+          <img src="images/proposal/cattail3.jpg" height="200">
+          <img src="images/proposal/cattail.png" height="200">
+        </div><br>
+
+        <h4>Features</h4>
+        <p>The following list describes the features I would like to implement: </p>
+        <ul>
+          <li>Simple extra emitter (5 pts) - Create a spotlight for lampposts in the streets. Validation via comparison with the Mitsuba implementation of the spotlight.</li>
+          <li>Layered BSDF (15 pts) - Rain on cement, to allow reflective lights on the ground. Validation via comparison with the Mitsuba implementation of internal scattering (under plastic BSDF).</li>
+          <li>Fur Rendering (40 pts) - Render the fur of the cats in my scene. A full model includes curve primitives, an acceleration structure like BVH or KD-Tree, and Marschner hair BSDF. Validation will be done by comparing the rendered image with the implementation on a mature renderer like PBRT or Maya.</li>
+        </ul>
+
+        <p>I will also need to use Blender to modify and piece together available meshes according to the scene I described above.</p>
+
+        <h5 style="text-align:right"><a href="modelling.html">Next: modelling →</a></h5>
+      </div>
+		</div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
